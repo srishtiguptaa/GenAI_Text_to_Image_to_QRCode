@@ -1,8 +1,11 @@
-GENERATE IMAGES AND QR CODE USING GENAI
-About the Project:-
+# GENERATE IMAGES AND QR CODE USING GENAI
+
+## About the Project:-
+
 Create a GenAI model that takes a text prompt and generate an image. Using that image and data that needs to be embedded in QR Code, generate an contextual QR code.
 
-Problem Statement:
+## Problem Statement:
+
 Create application that can generate image and scannable QR Code using a Gen AI text to image model.
 
 • There is a text prompt for which an image is needed.
@@ -13,15 +16,20 @@ Create application that can generate image and scannable QR Code using a Gen AI 
 
 • Create an app that will take a prompt and QR data from user and generate and display the QR.
 
-Table of content:-
-Prerequisites
-Setup
-Approach
-Performance Comparison
-Contribution
-Prerequisites:
+## Table of content:-
+
+1. Prerequisites
+2. Setup
+3. Approach
+4. Performance Comparison
+5. Contribution
+
+### Prerequisites:
+
 Before you begin, ensure you have the following prerequisites installed and configured:
 
-GenAI
-Google Collab
-Setup
+- GenAI
+- Google Collab
+
+### Setup
+
