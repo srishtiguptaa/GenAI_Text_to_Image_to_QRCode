@@ -1,0 +1,46 @@
+##Limitations:
+
+### 1. **Model Execution Environment Conflicts**
+
+   - **Dependency Compatibility Issues**: Large generative models like Stable Diffusion and ControlNet require specific versions of libraries (such as PyTorch, Transformers, and CUDA). If the frontend expects the backend to respond instantly but the backend environment is unstable due to version mismatches or dependency conflicts, this causes crashes or delays in responses.
+   - **Inconsistent GPU Access in Production**: Running models in development is different from production. GPU access can be inconsistent depending on the deployment environment (e.g., a hosted service may limit GPU usage or charge high fees, making testing infeasible), making it difficult to maintain reliable backend performance.
+
+### 2. **Real-Time Processing Bottlenecks**
+
+   - **Latency Due to Heavy Computational Load**: Stable Diffusion and ControlNet are computationally intensive, which can cause the backend to respond slowly or even time out, especially on low-end GPUs or CPUs. Real-time responsiveness is essential for smooth frontend integration, and high latency leads to unacceptable user experience.
+   - **Lack of Async Processing Support**: To connect a model like Stable Diffusion, which requires several seconds (or more) per generation, with a frontend, asynchronous processing is crucial. Without asynchronous capabilities, each request blocks the server, preventing simultaneous handling of multiple user requests and stalling the frontend.
+
+### 3. **Frontend and Backend Data Transmission Complexities**
+
+   - **Complexity in Handling Large Model Outputs**: The backend generates large image files that need to be efficiently sent to the frontend. However, transmitting large images over HTTP/S without compression results in slow data transfer and delays in displaying the output on the frontend.
+   - **Serialization Challenges**: Serializing and deserializing data such as images or model outputs between Python (backend) and JavaScript (frontend) adds complexity. Inconsistent handling of binary data (for images) across formats can break the connection or lead to corrupted data on the frontend.
+
+### 4. **Session and State Management**
+
+   - **Maintaining Model State Across Requests**: Complex models may require session-specific states (e.g., cached embeddings or intermediate results) for efficient processing. Without proper session management, each request has to reload the model from scratch, causing delays and impacting frontend performance.
+   - **Session Handling with Multi-User Access**: If multiple users attempt to use the application simultaneously, it creates session handling challenges. Without an architecture that can handle individual sessions for each user, there’s a risk of users receiving incorrect images or information.
+
+### 5. **Resource and Infrastructure Constraints**
+
+   - **Hardware Limitations**: The project likely lacks access to high-performance GPUs that are necessary for real-time model inference. Insufficient hardware resources (especially in a hosted environment) result in prolonged image generation times, which directly impacts backend performance.
+   - **High Memory Consumption of Models**: Stable Diffusion and ControlNet consume large amounts of memory. Limited access to memory resources results in frequent crashes or out-of-memory errors, making it difficult for the backend to sustain connection with the frontend reliably.
+
+### 6. **Security and Authentication Issues**
+
+   - **Absence of Secure API Endpoints**: Without secure APIs to handle user prompts and return generated images, requests could be vulnerable to unauthorized access. Implementing proper authentication (e.g., tokens or API keys) adds complexity, and without it, the backend may be exposed to security risks that discourage deployment.
+   - **Rate Limiting and Abuse Prevention**: Models like Stable Diffusion are computationally expensive. Without rate limiting, users can easily overwhelm the backend with excessive requests, making it difficult to maintain a stable and secure connection with the frontend.
+
+### 7. **Error Handling and Monitoring Challenges**
+
+   - **Insufficient Error Logging and Monitoring**: Without detailed logging of errors in the backend, diagnosing issues becomes challenging. Problems like model crashes, API endpoint failures, or data transfer issues remain hidden, making it difficult to understand why requests are failing.
+   - **Lack of Retry Mechanisms**: In cases of model failure or timeout errors, retry mechanisms are essential to maintain a stable backend connection. Without such mechanisms, the frontend receives no response, breaking the user experience.
+
+### 8. **Scalability and Concurrent Request Handling**
+
+   - **Single Threaded or Limited Multi-threading**: If the backend isn’t designed to handle multiple threads, concurrent requests can overwhelm the system, causing significant delays and failures. The model needs to handle multiple users efficiently, but without a scalable backend infrastructure, this is difficult to achieve.
+   - **No Load Balancing or Distribution**: Handling multiple requests across different nodes or instances requires load balancing. Without load balancing, the backend is forced to queue requests, which delays responses to the frontend and can result in timeouts.
+
+### 9. **Difficulty in Testing and Debugging Model API Calls**
+
+   - **Debugging Model-Related Errors in Production**: Stable Diffusion and ControlNet model errors can be complex to debug, especially in a production environment where real-time debugging is not feasible. This leads to challenges in identifying the cause of response delays or model crashes when connecting to the frontend.
+   - **Lack of Mocking for Model Responses**: Testing frontend-backend communication without always generating a new image can streamline development, but without mock responses for the model API, testing becomes time-consuming and requires extensive resources.
