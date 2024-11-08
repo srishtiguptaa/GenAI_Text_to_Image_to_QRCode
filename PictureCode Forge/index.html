@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Generator</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Welcome to PictureCode Forge</h1>
+    <div id="page1">
+        <h2>Enter Your Prompt here!</h2>
+        <input type="text" id="promptInput" placeholder="Enter your prompt...">
+        <button onclick="generateImage()">Generate Image</button>
+    </div>
+    <div id="page2" style="display: none;">
+        <h2>Generated Image</h2>
+        <img id="generatedImage">
+        <button onclick="goToPage1()">Back to Prompt</button>
+        <button onclick="generateQR()">Generate QR Code</button>
+    </div>
+    <div id="page3" style="display: none;">
+        <h2>Generated QR Code</h2>
+        <img id="generatedQR">
+        <button onclick="goToPage1()">Back to Prompt</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
